@@ -11,9 +11,11 @@ Optionally include page numbers, footer information and merge many PDFs into one
 There are 2 methods to run the script, either with flags or with Q and A prompts.
 
 To run the script with flags follow the syntax below.
+
 ```
 node ./index.mjs --dir [--out-dir] [--name-deli] [--label] [--number-pages] [--merge-all] [--merged-name] [--group-desc] [--group-label]
 ```
+
 ## Description of flags
 
 | FLAG                   | USE                                         | REQUIRED | DEFAULT        |
@@ -23,8 +25,8 @@ node ./index.mjs --dir [--out-dir] [--name-deli] [--label] [--number-pages] [--m
 | --name-deli            | name delineator                             | optional | ' - '          |
 | --label-index          | filename index of cover page label          | optional | null           |
 | --label                | cover page label                            | optional | SEPARATOR PAGE |
-| --date-index           | filename index of the date                  | optional | null           |
 | --header-index         | filename index of the cover page header     | optional | 1              |
+| --date-index           | filename index of the date                  | optional | 0              |
 | --date-format          | the format of the date in the filename      | optional | 'YYYYMMDD'     |
 | --date-in-header       | put the date in the cover page header       | optional | false          |
 | --title-index          | filename index of the cover page title      | optional | 2              |
@@ -36,7 +38,9 @@ node ./index.mjs --dir [--out-dir] [--name-deli] [--label] [--number-pages] [--m
 | --group-label          | the group description label                 | optional | null           |
 
 To run the script with the Q and A cli use the syntax below.
+
 ```
 node ./index.mjs --cli
 ```
+
 This will activate a series of prompts relative to the flags above. After completing the prompts the generation will begin.

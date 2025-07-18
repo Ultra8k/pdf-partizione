@@ -3,25 +3,25 @@ import cliOptions from "./cli-options.mjs";
 
 export default async () => {
   let dir,
-  outDir,
-  nameDelineator,
-  labelIndex,
-  label,
-  numberPages,
-  mergeAll,
-  mergedName,
-  groupDesc,
-  labelIsGroupDescLabel,
-  groupDescLabel,
-  dateIndex,
-  dateFormat,
-  headerIndex,
-  dateInHeader,
-  titleIndex;
-  
+    outDir,
+    nameDelineator,
+    labelIndex,
+    label,
+    numberPages,
+    mergeAll,
+    mergedName,
+    groupDesc,
+    labelIsGroupDescLabel,
+    groupDescLabel,
+    dateIndex,
+    dateFormat,
+    headerIndex,
+    dateInHeader,
+    titleIndex;
+
   // parse command line arguments
   const args = minimist(process.argv.slice(2));
-  
+
   if (args.cli) {
     const cli_options = await cliOptions();
     dir = cli_options.dir;
@@ -45,14 +45,15 @@ export default async () => {
     outDir = args["out-dir"] ?? "output";
     nameDelineator = args["name-deli"] ?? " - ";
     labelIndex = args["label-index"] ?? null;
-    label = !labelIndex && args.label || "SEPARATOR PAGE";
+    label = (!labelIndex && args.label) || "SEPARATOR PAGE";
     numberPages = args["number-pages"] === "true" ? true : false;
     mergeAll = args["merge-all"] === "true" ? true : false;
     mergedName = args["merged-name"] ?? "merged.pdf";
     groupDescLabel = args["group-label"] ?? null;
-    labelIsGroupDescLabel = args["label-is-group-label"] === "true" ? true : false;
+    labelIsGroupDescLabel =
+      args["label-is-group-label"] === "true" ? true : false;
     groupDesc = labelIsGroupDescLabel || (groupDescLabel ?? false);
-    dateIndex = args["date-index"] ?? null;
+    dateIndex = args["date-index"] ?? 0;
     dateFormat = args["date-format"] ?? "YYYYMMDD";
     headerIndex = args["header-index"] ?? 1;
     dateInHeader = args["date-in-header"] === "true" ? true : false;
@@ -75,6 +76,6 @@ export default async () => {
     dateFormat,
     headerIndex,
     dateInHeader,
-    titleIndex
-  }
-}
+    titleIndex,
+  };
+};
