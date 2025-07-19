@@ -6,13 +6,12 @@ import logSymbols from "log-symbols";
 import {
   parseOptions,
   generateSeparators,
-  generateFooter,
-  mergeAll as mergeAllPdfs,
+  noPartitions,
   log,
 } from "./modules/index.mjs";
 
 const args = await parseOptions();
-const { dir, outDir, numberPages, mergeAll, mergedName, groupDesc } = args;
+const { dir, outDir, mergedName, createPartitions } = args;
 
 if (!dir) {
   log(
@@ -52,13 +51,7 @@ try {
 } catch (error) {}
 
 const run = async () => {
-  const totalPages = await generateSeparators(args);
-  if (numberPages || groupDesc) {
-    await generateFooter(args, totalPages);
-  }
-  if (mergeAll) {
-    await mergeAllPdfs(args);
-  }
+  createPartitions ? await generateSeparators(args) : await noPartitions(args);
 };
 
 oraPromise(run, {

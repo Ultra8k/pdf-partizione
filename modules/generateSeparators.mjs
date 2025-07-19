@@ -5,6 +5,8 @@ import { PDFDocument, StandardFonts, PageSizes, rgb, degrees } from "pdf-lib";
 import chalk from "chalk";
 import logSymbols from "log-symbols";
 import { log } from "./log.mjs";
+import { generateFooter } from "./generateFooter.mjs";
+import { mergeAll as mergeAllPdfs } from "./mergeAll.mjs";
 
 export const generateSeparators = async (args) => {
   const {
@@ -18,6 +20,9 @@ export const generateSeparators = async (args) => {
     headerIndex,
     dateInHeader,
     titleIndex,
+    numberPages,
+    groupDesc,
+    mergeAll,
   } = args;
 
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -162,6 +167,7 @@ export const generateSeparators = async (args) => {
         rotate: degrees(-90),
       });
 
+    // draw cover page header
     drawText(header[0], headerFontSize, width - bookmarkDims.height * 1.5);
     if (dateInHeader) {
       drawText(
@@ -170,6 +176,8 @@ export const generateSeparators = async (args) => {
         width - bookmarkDims.height * 1.5 - textHeight(headerFontSize) * 1.5
       );
     }
+
+    // draw cover page title
     drawText(
       title,
       fontSize,
@@ -178,6 +186,8 @@ export const generateSeparators = async (args) => {
         textHeight(headerFontSize) * 1.5 * 2 -
         textHeight(fontSize) * 1.5
     );
+
+    // draw cover page page length
     drawText(
       pageLength,
       fontSize,
@@ -186,6 +196,8 @@ export const generateSeparators = async (args) => {
         textHeight(headerFontSize) * 1.5 * 2 -
         textHeight(fontSize) * 1.5 * 3
     );
+
+    // draw cover page label
     drawText(separatorPageLabel, labelFontSize, width / 2);
 
     // copy original pdf pages to separator pdf
@@ -242,5 +254,10 @@ export const generateSeparators = async (args) => {
 
   log(chalk.green(logSymbols.success, "Success, all PDFs generated.\n\n"));
 
-  return totalPages;
+  if (numberPages || groupDesc) {
+    await generateFooter(args, totalPages);
+  }
+  if (mergeAll) {
+    await mergeAllPdfs(args);
+  }
 };

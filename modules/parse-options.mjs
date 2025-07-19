@@ -5,6 +5,7 @@ export const parseOptions = async () => {
   let dir,
     outDir,
     nameDelineator,
+    createPartitions,
     labelIndex,
     label,
     numberPages,
@@ -26,12 +27,13 @@ export const parseOptions = async () => {
     const cli_options = await cliOptions();
     dir = cli_options.dir;
     outDir = cli_options.outDir;
+    mergeAll = cli_options.mergeAll;
+    mergedName = cli_options.mergedName;
+    numberPages = cli_options.numberPages;
+    createPartitions = cli_options.createPartitions;
     nameDelineator = cli_options.nameDelineator;
     labelIndex = cli_options.labelIndex;
     label = cli_options.label;
-    numberPages = cli_options.numberPages;
-    mergeAll = cli_options.mergeAll;
-    mergedName = cli_options.mergedName;
     groupDesc = cli_options.groupDesc;
     groupDescLabel = cli_options.groupDescLabel;
     labelIsGroupDescLabel = cli_options.labelIsGroupDescLabel;
@@ -43,12 +45,13 @@ export const parseOptions = async () => {
   } else {
     dir = args.dir ?? "";
     outDir = args["out-dir"] ?? "output";
+    mergeAll = args["merge-all"] === "true" ? true : false;
+    mergedName = args["merged-name"] ?? "merged.pdf";
+    numberPages = args["number-pages"] === "true" ? true : false;
+    createPartitions = args["create-partitions"] === "false" ? false : true;
     nameDelineator = args["name-deli"] ?? " - ";
     labelIndex = args["label-index"] ?? null;
     label = (!labelIndex && args.label) || "SEPARATOR PAGE";
-    numberPages = args["number-pages"] === "true" ? true : false;
-    mergeAll = args["merge-all"] === "true" ? true : false;
-    mergedName = args["merged-name"] ?? "merged.pdf";
     groupDescLabel = args["group-label"] ?? null;
     labelIsGroupDescLabel =
       args["label-is-group-label"] === "true" ? true : false;
@@ -63,12 +66,13 @@ export const parseOptions = async () => {
   return {
     dir,
     outDir,
+    mergeAll,
+    mergedName,
+    numberPages,
+    createPartitions,
     nameDelineator,
     labelIndex,
     label,
-    numberPages,
-    mergeAll,
-    mergedName,
     groupDesc,
     groupDescLabel,
     labelIsGroupDescLabel,

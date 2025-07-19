@@ -17,7 +17,7 @@ export const mergeAll = async (args) => {
       path.extname(file) === ".pdf"
   );
   const sortedFiles =
-    dateIndex === 0
+    dateIndex !== null
       ? filteredFiles.sort((a, b) => {
           const sorterA = +a.split(nameDelineator)[0];
           const sorterB = +b.split(nameDelineator)[0];

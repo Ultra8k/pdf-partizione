@@ -8,60 +8,63 @@ export default async () => {
     message: "What is the output directory?",
     default: "output",
   });
+
+  const mergeAll = await select({
+    choices: [
+      {
+        name: "Yes",
+        value: true,
+      },
+      {
+        name: "No",
+        value: false,
+      },
+    ],
+    message: "Merge all generated files?",
+    default: false,
+  });
+  let mergedName = null;
+  if (mergeAll) {
+    mergedName = await input({
+      message: "Merged file name?",
+      default: "merged.pdf",
+    });
+  }
+
+  const createPartitions = await select({
+    choices: [
+      {
+        name: "Yes",
+        value: true,
+      },
+      {
+        name: "No",
+        value: false,
+      },
+    ],
+    message: "Do you want to create partitions?",
+    default: true,
+  });
+
+  const numberPages = await select({
+    choices: [
+      {
+        name: "Yes",
+        value: true,
+      },
+      {
+        name: "No",
+        value: false,
+      },
+    ],
+    message: "Apply page numbers?",
+    default: false,
+  });
+
   const nameDelineator = await input({
     message: "What is the filename delineator?",
     default: " - ",
   });
-
-  const labelInFilename = await select({
-    choices: [
-      {
-        name: "Yes",
-        value: true,
-      },
-      {
-        name: "No",
-        value: false,
-      },
-    ],
-    message: "Is the cover page label in the filename?",
-    default: false,
-  });
-  let labelIndex,
-    label = null;
-  if (labelInFilename) {
-    labelIndex = await number({
-      message: "What index of the filename is the cover page label?",
-      required: labelInFilename,
-    });
-  } else {
-    label = await input({
-      message: "What is the cover page label?",
-      default: "SEPARATOR PAGE",
-    });
-  }
-
-  let headerIndex = null;
-  const headerInFilename = await select({
-    choices: [
-      {
-        name: "Yes",
-        value: true,
-      },
-      {
-        name: "No",
-        value: false,
-      },
-    ],
-    message: "Is the cover page header in the filename?",
-    default: false,
-  });
-  if (headerInFilename) {
-    headerIndex = await number({
-      message: "What index of the filename is the header?",
-      required: headerInFilename,
-    });
-  }
 
   const dateInFilename = await select({
     choices: [
@@ -77,12 +80,13 @@ export default async () => {
     message: "Is the date in the filename?",
     default: false,
   });
-  let dateIndex,
-    dateFormat = null;
+  let dateIndex = 0;
+  let dateFormat = "YYYYMMDD";
   if (dateInFilename) {
     dateIndex = await number({
       message: "What index of the filename is the date?",
       default: 0,
+      required: dateInFilename,
     });
     dateFormat = await select({
       choices: [
@@ -128,78 +132,101 @@ export default async () => {
     });
   }
 
-  const dateInHeader = await select({
-    choices: [
-      {
-        name: "Yes",
-        value: true,
-      },
-      {
-        name: "No",
-        value: false,
-      },
-    ],
-    message: "Should the date be in the cover page header?",
-    default: true,
-  });
-
-  const titleInFilename = await select({
-    choices: [
-      {
-        name: "Yes",
-        value: true,
-      },
-      {
-        name: "No",
-        value: false,
-      },
-    ],
-    message: "Is the cover page title in the filename?",
-    default: false,
-  });
-  let titleIndex;
-  if (titleInFilename) {
-    titleIndex = await number({
-      message: "What index of the filename is the title?",
-      required: titleInFilename,
+  let labelInFilename,
+    labelIndex,
+    label,
+    headerIndex,
+    headerInFilename,
+    dateInHeader,
+    titleInFilename,
+    titleIndex = null;
+  if (createPartitions) {
+    labelInFilename = await select({
+      choices: [
+        {
+          name: "Yes",
+          value: true,
+        },
+        {
+          name: "No",
+          value: false,
+        },
+      ],
+      message: "Is the cover page label in the filename?",
+      default: false,
     });
+    if (labelInFilename) {
+      labelIndex = await number({
+        message: "What index of the filename is the cover page label?",
+        required: labelInFilename,
+      });
+    } else {
+      label = await input({
+        message: "What is the cover page label?",
+        default: "SEPARATOR PAGE",
+      });
+    }
+
+    headerInFilename = await select({
+      choices: [
+        {
+          name: "Yes",
+          value: true,
+        },
+        {
+          name: "No",
+          value: false,
+        },
+      ],
+      message: "Is the cover page header in the filename?",
+      default: false,
+    });
+    if (headerInFilename) {
+      headerIndex = await number({
+        message: "What index of the filename is the header?",
+        default: 1,
+        required: headerInFilename,
+      });
+    }
+
+    dateInHeader = await select({
+      choices: [
+        {
+          name: "Yes",
+          value: true,
+        },
+        {
+          name: "No",
+          value: false,
+        },
+      ],
+      message: "Should the date be in the cover page header?",
+      default: true,
+    });
+
+    titleInFilename = await select({
+      choices: [
+        {
+          name: "Yes",
+          value: true,
+        },
+        {
+          name: "No",
+          value: false,
+        },
+      ],
+      message: "Is the cover page title in the filename?",
+      default: false,
+    });
+    if (titleInFilename) {
+      titleIndex = await number({
+        message: "What index of the filename is the title?",
+        default: 2,
+        required: titleInFilename,
+      });
+    }
   }
 
-  const numberPages = await select({
-    choices: [
-      {
-        name: "Yes",
-        value: true,
-      },
-      {
-        name: "No",
-        value: false,
-      },
-    ],
-    message: "Apply page numbers?",
-    default: false,
-  });
-  const mergeAll = await select({
-    choices: [
-      {
-        name: "Yes",
-        value: true,
-      },
-      {
-        name: "No",
-        value: false,
-      },
-    ],
-    message: "Merge all generated files?",
-    default: false,
-  });
-  let mergedName = null;
-  if (mergeAll) {
-    mergedName = await input({
-      message: "Merged file name?",
-      default: "merged.pdf",
-    });
-  }
   const groupDesc = await select({
     choices: [
       {
@@ -214,35 +241,40 @@ export default async () => {
     message: "Use a Group Description?",
     default: false,
   });
-  const labelIsGroupDescLabel = await select({
-    choices: [
-      {
-        name: "Yes",
-        value: true,
-      },
-      {
-        name: "No",
-        value: false,
-      },
-    ],
-    message: "Is the cover page label the group description label?",
-    default: false,
-  });
+  let labelIsGroupDescLabel = false;
+  if (createPartitions && groupDesc) {
+    labelIsGroupDescLabel = await select({
+      choices: [
+        {
+          name: "Yes",
+          value: true,
+        },
+        {
+          name: "No",
+          value: false,
+        },
+      ],
+      message: "Is the cover page label the group description label?",
+      default: false,
+    });
+  }
   let groupDescLabel = null;
   if (groupDesc && !labelIsGroupDescLabel) {
     groupDescLabel = await input({
       message: "What is the group description label?",
     });
   }
+
   return {
     dir,
     outDir,
+    mergeAll,
+    mergedName,
+    numberPages,
+    createPartitions,
     nameDelineator,
     labelIndex,
     label,
-    numberPages,
-    mergeAll,
-    mergedName,
     groupDesc,
     labelIsGroupDescLabel,
     groupDescLabel,
