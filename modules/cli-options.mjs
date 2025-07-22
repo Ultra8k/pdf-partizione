@@ -61,6 +61,25 @@ export default async () => {
     default: false,
   });
 
+  const pageNumberPos = await select({
+    choices: [
+      {
+        name: "Left",
+        value: "left",
+      },
+      {
+        name: "Center",
+        value: "center",
+      },
+      {
+        name: "Right",
+        value: "right",
+      },
+    ],
+    message: "Where do you want to place page numbers?",
+    default: "right",
+  });
+
   const nameDelineator = await input({
     message: "What is the filename delineator?",
     default: " - ",
@@ -258,10 +277,29 @@ export default async () => {
       default: false,
     });
   }
-  let groupDescLabel = null;
+  let groupDescLabel,
+    groupDescLabelPos = null;
   if (groupDesc && !labelIsGroupDescLabel) {
     groupDescLabel = await input({
       message: "What is the group description label?",
+    });
+    groupDescLabelPos = await select({
+      choices: [
+        {
+          name: "Left",
+          value: "left",
+        },
+        {
+          name: "Center",
+          value: "center",
+        },
+        {
+          name: "Right",
+          value: "right",
+        },
+      ],
+      message: "Where do want to place the group description label?",
+      default: "right",
     });
   }
 
@@ -271,6 +309,7 @@ export default async () => {
     mergeAll,
     mergedName,
     numberPages,
+    pageNumberPos,
     createPartitions,
     nameDelineator,
     labelIndex,
@@ -278,6 +317,7 @@ export default async () => {
     groupDesc,
     labelIsGroupDescLabel,
     groupDescLabel,
+    groupDescLabelPos,
     dateIndex,
     dateFormat,
     headerIndex,

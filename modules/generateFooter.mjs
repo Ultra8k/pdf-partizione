@@ -12,7 +12,9 @@ export const generateFooter = async (args, totalPages) => {
     labelIndex,
     label,
     numberPages,
+    pageNumberPos,
     groupDescLabel,
+    groupDescLabelPos,
     labelIsGroupDescLabel,
     dateIndex,
   } = args;
@@ -61,25 +63,40 @@ export const generateFooter = async (args, totalPages) => {
         : groupDescLabel;
 
     pages.forEach((page) => {
+      const { width } = page.getSize();
       let footer = `${
         groupLabel ?? "_"
       } - Page ${currentPage} of ${totalPages}`;
       if (!groupLabel) footer = footer.split(" - ")[1];
       if (!numberPages) footer = footer.split(" - ")[0];
+
+      let footerX;
+      switch (pageNumberPos) {
+        case "left":
+          footerX = 36;
+          break;
+        case "center":
+          footerX = width / 2 - font.widthOfTextAtSize(footer, 8) / 2;
+          break;
+        default:
+          footerX = width - 36 - font.widthOfTextAtSize(footer, 8);
+      }
+
       page.drawRectangle({
-        x: page.getWidth() - 36 - font.widthOfTextAtSize(footer, 8) * 1.2,
+        x: footerX * 1.2,
         y: 36,
         width: font.widthOfTextAtSize(footer, 8) * 1.2,
         height: font.heightAtSize(8) * 1.5,
         color: grayscale(1),
       });
       page.drawText(footer, {
-        x: page.getWidth() - 36 - font.widthOfTextAtSize(footer, 8),
+        x: footerX,
         y: 36 + font.heightAtSize(8) / 2,
         size: 8,
         font,
         color: rgb(0, 0, 0),
       });
+
       if (numberPages) currentPage += 1;
     });
 

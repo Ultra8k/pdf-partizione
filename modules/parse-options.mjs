@@ -9,11 +9,13 @@ export const parseOptions = async () => {
     labelIndex,
     label,
     numberPages,
+    pageNumberPos,
     mergeAll,
     mergedName,
     groupDesc,
     labelIsGroupDescLabel,
     groupDescLabel,
+    groupDescLabelPos,
     dateIndex,
     dateFormat,
     headerIndex,
@@ -30,12 +32,14 @@ export const parseOptions = async () => {
     mergeAll = cli_options.mergeAll;
     mergedName = cli_options.mergedName;
     numberPages = cli_options.numberPages;
+    pageNumberPos = cli_options.pageNumberPos;
     createPartitions = cli_options.createPartitions;
     nameDelineator = cli_options.nameDelineator;
     labelIndex = cli_options.labelIndex;
     label = cli_options.label;
     groupDesc = cli_options.groupDesc;
     groupDescLabel = cli_options.groupDescLabel;
+    groupDescLabelPos = cli_options.groupDescLabelPos;
     labelIsGroupDescLabel = cli_options.labelIsGroupDescLabel;
     dateIndex = cli_options.dateIndex;
     dateFormat = cli_options.dateFormat;
@@ -48,11 +52,13 @@ export const parseOptions = async () => {
     mergeAll = args["merge-all"] === "true" ? true : false;
     mergedName = args["merged-name"] ?? "merged.pdf";
     numberPages = args["number-pages"] === "true" ? true : false;
+    pageNumberPos = args["page-number-position"] ?? "right";
     createPartitions = args["create-partitions"] === "false" ? false : true;
     nameDelineator = args["name-deli"] ?? " - ";
     labelIndex = args["label-index"] ?? null;
     label = (!labelIndex && args.label) || "SEPARATOR PAGE";
     groupDescLabel = args["group-label"] ?? null;
+    groupDescLabelPos = args["group-desc-label-position"] ?? "right";
     labelIsGroupDescLabel =
       args["label-is-group-label"] === "true" ? true : false;
     groupDesc = labelIsGroupDescLabel || (groupDescLabel ?? false);
@@ -69,12 +75,14 @@ export const parseOptions = async () => {
     mergeAll,
     mergedName,
     numberPages,
+    pageNumberPos,
     createPartitions,
     nameDelineator,
     labelIndex,
     label,
     groupDesc,
     groupDescLabel,
+    groupDescLabelPos,
     labelIsGroupDescLabel,
     dateIndex,
     dateFormat,
