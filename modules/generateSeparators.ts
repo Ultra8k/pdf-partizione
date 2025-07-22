@@ -4,11 +4,12 @@ import fs from "node:fs";
 import { PDFDocument, StandardFonts, PageSizes, rgb, degrees } from "pdf-lib";
 import chalk from "chalk";
 import logSymbols from "log-symbols";
-import { log } from "./log.mjs";
-import { generateFooter } from "./generateFooter.mjs";
-import { mergeAll as mergeAllPdfs } from "./mergeAll.mjs";
+import { log } from "./log.js";
+import { generateFooter } from "./generateFooter.js";
+import { mergeAll as mergeAllPdfs } from "./mergeAll.js";
+import { Args } from "../types";
 
-export const generateSeparators = async (args) => {
+export const generateSeparators = async (args: Args) => {
   const {
     dir,
     outDir,
@@ -152,12 +153,13 @@ export const generateSeparators = async (args) => {
       "\n"
     );
 
-    const textWidth = (text, textFontSize) =>
+    const textWidth = (text: string, textFontSize: number) =>
       font.widthOfTextAtSize(text, textFontSize);
-    const textHeight = (textFontSize) => font.heightAtSize(textFontSize);
+    const textHeight = (textFontSize: number) =>
+      font.heightAtSize(textFontSize);
 
     // draw text line
-    const drawText = (text, textFontSize, offset = 0) =>
+    const drawText = (text: string, textFontSize: number, offset = 0) =>
       page.drawText(text, {
         x: offset - textHeight(textFontSize) / 2,
         y: height / 2 + textWidth(text, textFontSize) / 2,

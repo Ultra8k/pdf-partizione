@@ -3,12 +3,7 @@ import fs from "node:fs";
 import chalk from "chalk";
 import { oraPromise } from "ora";
 import logSymbols from "log-symbols";
-import {
-  parseOptions,
-  generateSeparators,
-  noPartitions,
-  log,
-} from "./modules/index.mjs";
+import { parseOptions, generateSeparators, noPartitions, log } from "./modules";
 
 const args = await parseOptions();
 const { dir, outDir, mergedName, createPartitions } = args;

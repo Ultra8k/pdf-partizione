@@ -1,0 +1,21 @@
+export type Args = {
+  dir: string;
+  outDir: string;
+  nameDelineator: string;
+  createPartitions: boolean;
+  labelIndex: number | null;
+  label: string;
+  numberPages: boolean;
+  pageNumberPos: "left" | "center" | "right";
+  mergeAll: boolean;
+  mergedName: string;
+  groupDesc: boolean;
+  labelIsGroupDescLabel: boolean;
+  groupDescLabel: string | null;
+  groupDescLabelPos: string;
+  dateIndex: number;
+  dateFormat: string;
+  headerIndex: number;
+  dateInHeader: boolean;
+  titleIndex: number;
+};

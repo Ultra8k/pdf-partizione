@@ -3,9 +3,10 @@ import fs from "node:fs";
 import { PDFDocument } from "pdf-lib";
 import chalk from "chalk";
 import logSymbols from "log-symbols";
-import { log } from "./log.mjs";
+import { log } from "./log.js";
+import { Args } from "../types";
 
-export const mergeAll = async (args) => {
+export const mergeAll = async (args: Args) => {
   const { outDir, nameDelineator, mergedName, dateIndex } = args;
 
   log(chalk.cyan("Merging all generated PDFs."));

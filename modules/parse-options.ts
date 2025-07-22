@@ -1,7 +1,8 @@
 import minimist from "minimist";
-import cliOptions from "./cli-options.mjs";
+import cliOptions from "./cli-options";
+import { Args } from "../types";
 
-export const parseOptions = async () => {
+export const parseOptions = async (): Promise<Args> => {
   let dir,
     outDir,
     nameDelineator,

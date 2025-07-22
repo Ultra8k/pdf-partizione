@@ -3,11 +3,12 @@ import fs from "node:fs";
 import { PDFDocument, PageSizes, degrees } from "pdf-lib";
 import chalk from "chalk";
 import logSymbols from "log-symbols";
-import { log } from "./log.mjs";
-import { generateFooter } from "./generateFooter.mjs";
-import { mergeAll as mergeAllPdfs } from "./mergeAll.mjs";
+import { log } from "./log";
+import { generateFooter } from "./generateFooter";
+import { mergeAll as mergeAllPdfs } from "./mergeAll";
+import { Args } from "../types";
 
-export const noPartitions = async (args) => {
+export const noPartitions = async (args: Args) => {
   const {
     dir,
     outDir,

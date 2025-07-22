@@ -102,11 +102,11 @@ export default async () => {
   let dateIndex = 0;
   let dateFormat = "YYYYMMDD";
   if (dateInFilename) {
-    dateIndex = await number({
+    dateIndex = (await number({
       message: "What index of the filename is the date?",
       default: 0,
       required: dateInFilename,
-    });
+    })) as number;
     dateFormat = await select({
       choices: [
         {
@@ -156,7 +156,7 @@ export default async () => {
     label,
     headerIndex,
     headerInFilename,
-    dateInHeader,
+    dateInHeader = false,
     titleInFilename,
     titleIndex = null;
   if (createPartitions) {
@@ -220,7 +220,7 @@ export default async () => {
         },
       ],
       message: "Should the date be in the cover page header?",
-      default: true,
+      default: false,
     });
 
     titleInFilename = await select({

@@ -3,9 +3,10 @@ import fs from "node:fs";
 import { PDFDocument, StandardFonts, rgb, grayscale } from "pdf-lib";
 import chalk from "chalk";
 import logSymbols from "log-symbols";
-import { log } from "./log.mjs";
+import { log } from "./log.js";
+import { Args } from "../types";
 
-export const generateFooter = async (args, totalPages) => {
+export const generateFooter = async (args: Args, totalPages: number) => {
   const {
     outDir,
     nameDelineator,
