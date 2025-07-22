@@ -1,5 +1,5 @@
-import path from "path";
-import fs from "fs";
+import path from "node:path";
+import fs from "node:fs";
 import { PDFDocument } from "pdf-lib";
 import chalk from "chalk";
 import logSymbols from "log-symbols";
