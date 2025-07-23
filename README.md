@@ -15,7 +15,7 @@ There are 2 methods to run the script, either with flags or with Q and A prompts
 To run the script with flags follow the syntax below.
 
 ```
-node ./index.mjs --dir [--out-dir] [--name-deli] [--label] [--number-pages] [--merge-all] [--merged-name] [--group-desc] [--group-label]
+node ./pdf-partizione.js --dir [--out-dir] [--name-deli] [--label] [--number-pages] [--merge-all] [--merged-name] [--group-desc] [--group-label]
 ```
 
 ## Description of flags
@@ -44,7 +44,7 @@ node ./index.mjs --dir [--out-dir] [--name-deli] [--label] [--number-pages] [--m
 To run the script with the Q and A cli use the syntax below.
 
 ```
-node ./index.mjs --cli
+node ./pdf-partizione.js --cli
 ```
 
 This will activate a series of prompts relative to the flags above. After completing the prompts the generation will begin.

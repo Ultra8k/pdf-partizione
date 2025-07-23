@@ -9,6 +9,18 @@ import { generateFooter } from "./generateFooter.js";
 import { mergeAll as mergeAllPdfs } from "./mergeAll.js";
 import { Args } from "../types";
 
+/**
+ * Generates separator pages for each PDF in the source directory.
+ * The separator pages have a header, title, page length, and label.
+ * The header is the date from the filename, or the headerIndex from the filename.
+ * The title is the titleIndex from the filename.
+ * The page length is the number of pages in the original PDF.
+ * The label is the labelIndex from the filename, or the label option.
+ * The separator pages are saved to the output directory with the same name as the original PDF.
+ * If numberPages or groupDesc is true, calls generateFooter with the total number of pages.
+ * If mergeAll is true, calls mergeAllPdfs after all separator pages are generated.
+ * @param {Args} args - The options for generating the separator pages.
+ */
 export const generateSeparators = async (args: Args) => {
   const {
     dir,

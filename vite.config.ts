@@ -7,7 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, "index.ts"),
+      entry: resolve(__dirname, "src/index.ts"),
       name: "pdf-partizione",
       fileName: "pdf-partizione",
       formats: ["es", "system"],

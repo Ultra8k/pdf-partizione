@@ -6,6 +6,15 @@ import logSymbols from "log-symbols";
 import { log } from "./log.js";
 import { Args } from "../types";
 
+/**
+ * Applies a footer to all the generated PDFs in the output directory.
+ * The footer contains the group label, page number and total pages.
+ * The group label is determined by the labelIndex and label options.
+ * The page number is determined by the position of the generated PDF in the output directory.
+ * The total pages is determined by the totalPages parameter.
+ * @param {Args} args - The options for generating the footer.
+ * @param {number} totalPages - The total number of pages in the output directory.
+ */
 export const generateFooter = async (args: Args, totalPages: number) => {
   const {
     outDir,

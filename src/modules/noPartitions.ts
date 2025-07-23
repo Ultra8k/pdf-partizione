@@ -8,6 +8,11 @@ import { generateFooter } from "./generateFooter";
 import { mergeAll as mergeAllPdfs } from "./mergeAll";
 import { Args } from "../types";
 
+/**
+ * Creates a new PDF with the original pages, and does not create
+ * separators between them.
+ * @param {Args} args - The options for generating the pdf.
+ */
 export const noPartitions = async (args: Args) => {
   const {
     dir,

@@ -6,6 +6,10 @@ import logSymbols from "log-symbols";
 import { log } from "./log.js";
 import { Args } from "../types";
 
+/**
+ * Merge all generated PDFs into one PDF.
+ * @param {Args} args - The options for generating the pdf.
+ */
 export const mergeAll = async (args: Args) => {
   const { outDir, nameDelineator, mergedName, dateIndex } = args;
 

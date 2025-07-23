@@ -2,6 +2,11 @@ import minimist from "minimist";
 import cliOptions from "./cli-options";
 import { Args } from "../types";
 
+/**
+ * Parse command line arguments or Q and A prompts into Args.
+ *
+ * @returns Args
+ */
 export const parseOptions = async (): Promise<Args> => {
   let dir,
     outDir,
