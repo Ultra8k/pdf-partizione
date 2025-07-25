@@ -1,35 +1,37 @@
 {
-  "name": "pdf-partizione",
-  "version": "1.0.0",
-  "description": "",
-  "type": "module",
-  "main": "./dist/pdf-partizione.cjs",
-  "module": "./dist/pdf-partizione.mjs",
-  "exports": {
-    ".": {
-      "import": "./dist/pdf-partizione.mjs",
-      "require": "./dist/pdf-partizione.cjs"
-    }
-  },
-  "scripts": {
-    "build": "vite build"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@inquirer/prompts": "^5.5.0",
-    "chalk": "^5.4.1",
-    "cli-spinners": "^3.2.0",
-    "log-symbols": "^6.0.0",
-    "minimist": "^1.2.8",
-    "ora": "^8.2.0",
-    "pdf-lib": "^1.17.1"
-  },
-  "devDependencies": {
-    "@types/minimist": "^1.2.5",
-    "@types/node": "^24.0.15",
-    "typescript": "^5.8.3",
-    "vite": "^7.0.5"
-  }
+	"name": "pdf-partizione",
+	"version": "1.0.0",
+	"description": "",
+	"type": "module",
+	"main": "./dist/pdf-partizione.cjs",
+	"module": "./dist/pdf-partizione.mjs",
+	"exports": {
+		".": {
+			"import": "./dist/pdf-partizione.mjs",
+			"require": "./dist/pdf-partizione.cjs"
+		}
+	},
+	"scripts": {
+		"build": "vite build",
+		"lint": "biome check --write"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@inquirer/prompts": "^5.5.0",
+		"chalk": "^5.4.1",
+		"cli-spinners": "^3.2.0",
+		"log-symbols": "^6.0.0",
+		"minimist": "^1.2.8",
+		"ora": "^8.2.0",
+		"pdf-lib": "^1.17.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.1.2",
+		"@types/minimist": "^1.2.5",
+		"@types/node": "^24.0.15",
+		"typescript": "^5.8.3",
+		"vite": "^7.0.5"
+	}
 }
