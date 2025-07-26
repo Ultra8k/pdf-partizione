@@ -12,6 +12,10 @@ Optionally include page numbers, footer information and merge many PDFs into one
 
 Ensure you have [node.js](https://nodejs.org/en) installed.
 
+Open the location of this file in a terminal.
+
+Run `npm install` and wait for the process to finish.
+
 There are 2 methods to run the script, either with flags or with Q and A prompts.
 
 To run the script with flags follow the syntax below.
