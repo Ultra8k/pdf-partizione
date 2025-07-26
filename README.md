@@ -10,12 +10,14 @@ Optionally include page numbers, footer information and merge many PDFs into one
 
 # Running the script
 
+Ensure you have [node.js](https://nodejs.org/en) installed.
+
 There are 2 methods to run the script, either with flags or with Q and A prompts.
 
 To run the script with flags follow the syntax below.
 
 ```
-node ./pdf-partizione.js --dir [--out-dir] [--name-deli] [--label] [--number-pages] [--merge-all] [--merged-name] [--group-desc] [--group-label]
+node ./dist/pdf-partizione.js --dir [--out-dir] [--name-deli] [--label] [--number-pages] [--merge-all] [--merged-name] [--group-desc] [--group-label]
 ```
 
 ## Description of flags
