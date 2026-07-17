@@ -24,7 +24,6 @@ export const generateFooter = async (args: Args, totalPages: number) => {
 		numberPages,
 		pageNumberPos,
 		groupDescLabel,
-		groupDescLabelPos,
 		labelIsGroupDescLabel,
 		dateIndex,
 	} = args;

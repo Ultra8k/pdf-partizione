@@ -55,23 +55,22 @@ export const parseOptions = async (): Promise<Args> => {
 	} else {
 		dir = args.dir ?? "";
 		outDir = args["out-dir"] ?? "output";
-		mergeAll = args["merge-all"] === "true" ? true : false;
+		mergeAll = args["merge-all"] === "true";
 		mergedName = args["merged-name"] ?? "merged.pdf";
-		numberPages = args["number-pages"] === "true" ? true : false;
+		numberPages = args["number-pages"] === "true";
 		pageNumberPos = args["page-number-position"] ?? "right";
-		createPartitions = args["create-partitions"] === "false" ? false : true;
+		createPartitions = args["create-partitions"] !== "false";
 		nameDelineator = args["name-deli"] ?? " - ";
 		labelIndex = args["label-index"] ?? null;
 		label = (!labelIndex && args.label) || "SEPARATOR PAGE";
 		groupDescLabel = args["group-label"] ?? null;
 		groupDescLabelPos = args["group-desc-label-position"] ?? "right";
-		labelIsGroupDescLabel =
-			args["label-is-group-label"] === "true" ? true : false;
+		labelIsGroupDescLabel = args["label-is-group-label"] === "true";
 		groupDesc = labelIsGroupDescLabel || (groupDescLabel ?? false);
 		dateIndex = args["date-index"] ?? 0;
 		dateFormat = args["date-format"] ?? "YYYYMMDD";
 		headerIndex = args["header-index"] ?? 1;
-		dateInHeader = args["date-in-header"] === "true" ? true : false;
+		dateInHeader = args["date-in-header"] === "true";
 		titleIndex = args["title-index"] ?? 2;
 	}
 

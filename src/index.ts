@@ -20,7 +20,7 @@ if (!dir) {
 
 try {
 	fs.accessSync(dir);
-} catch (error) {
+} catch (_error) {
 	log(
 		chalk.redBright(
 			`${logSymbols.error} Can not access ${dir}. The directory doesn't exist or you do not have permission to read and write to it.\nExiting...\n`,
@@ -31,7 +31,7 @@ try {
 
 try {
 	fs.accessSync(outDir);
-} catch (error) {
+} catch (_error) {
 	log(
 		chalk.cyanBright(
 			`${logSymbols.info} Creating output directory ${outDir}\n`,
@@ -45,7 +45,7 @@ try {
 	fs.accessSync(path.join(outDir, mergedName));
 	log(chalk.yellow(logSymbols.warning, "Deleting existing merged PDF...\n"));
 	fs.unlinkSync(path.join(outDir, mergedName));
-} catch (error) {}
+} catch (_error) {}
 
 const run = async () => {
 	createPartitions ? await generateSeparators(args) : await noPartitions(args);
