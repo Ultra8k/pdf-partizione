@@ -12,7 +12,7 @@ export default defineConfig({
       fileName: "pdf-partizione",
       formats: ["es"],
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: [
         "pdf-lib",
         "chalk",
