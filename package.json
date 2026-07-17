@@ -1,6 +1,6 @@
 {
   "name": "pdf-partizione",
-  "version": "1.0.1",
+  "version": "3.0.0",
   "description": "A script for combining multiple pdf files into a single file with optional partitioning and page numbers",
   "type": "module",
   "main": "./dist/pdf-partizione.cjs",
