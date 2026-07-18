@@ -141,13 +141,12 @@ pdf-partizione/
 │   │   └── log.ts                 # Logging utility
 │   └── types/
 │       └── index.ts               # Shared type definitions (Args)
-├── output/                        # Generated PDFs go here
-├── pdfs/                          # Example source PDFs
 ├── package.json                   # Package metadata
 ├── tsconfig.json                  # typescript config
 ├── vite.config.ts                 # build config
 ├── biome.json                     # Linting config
-└── .vscode/settings.json          # Editor settings
+└── .vscode/
+    └──settings.json               # Editor settings
 ```
 
 ---
