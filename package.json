@@ -3,16 +3,9 @@
   "version": "3.0.0",
   "description": "A script for combining multiple pdf files into a single file with optional partitioning and page numbers",
   "type": "module",
-  "main": "./dist/pdf-partizione.cjs",
-  "module": "./dist/pdf-partizione.mjs",
-  "exports": {
-    ".": {
-      "import": "./dist/pdf-partizione.mjs",
-      "require": "./dist/pdf-partizione.cjs"
-    }
-  },
+  "main": "./PdfPartizione/index.js",
   "files": [
-    "dist"
+    "PdfPartizione"
   ],
   "scripts": {
     "build": "vite build",
@@ -35,7 +28,8 @@
     "@types/minimist": "^1.2.5",
     "@types/node": "^26.1.1",
     "typescript": "^7.0.2",
-    "vite": "^8.1.5"
+    "vite": "^8.1.5",
+    "vitest": "^4.1.10"
   },
   "volta": {
     "node": "24.18.0"

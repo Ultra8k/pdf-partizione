@@ -5,26 +5,25 @@ import { defineConfig } from "vite";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  ssr: {
+    noExternal: true,
+  },
   build: {
-    lib: {
-      entry: resolve(__dirname, "src/index.ts"),
-      name: "pdf-partizione",
-      fileName: "pdf-partizione",
-      formats: ["es"],
-    },
+    ssr: true,
+    outDir: resolve(__dirname, "./PdfPartizione"),
     rolldownOptions: {
-      external: [
-        "pdf-lib",
-        "chalk",
-        "log-symbols",
-        "ora",
-        "minimist",
-        "cli-spinners",
-        "@inquirer/prompts",
-        "node:fs",
-        "node:path",
-        "node:url",
-      ],
+      input: resolve(__dirname, "src/index.ts"),
+      output: {
+        format: "esm",
+        codeSplitting: {
+          groups: [
+            {
+              name: "vender",
+              test: /node_modules/,
+            },
+          ],
+        },
+      },
     },
   },
 });

@@ -2,7 +2,14 @@ import fs from "node:fs";
 import path from "node:path";
 import chalk from "chalk";
 import logSymbols from "log-symbols";
-import { grayscale, PDFDocument, rgb, StandardFonts } from "pdf-lib";
+import {
+  grayscale,
+  PDFDocument,
+  PDFFont,
+  PDFPage,
+  rgb,
+  StandardFonts,
+} from "pdf-lib";
 import type { Args } from "../types/index.js";
 import { log } from "./log.js";
 
@@ -23,7 +30,9 @@ export const generateFooter = async (args: Args, totalPages: number) => {
     label,
     numberPages,
     pageNumberPos,
+    groupDesc,
     groupDescLabel,
+    groupDescLabelPos,
     labelIsGroupDescLabel,
     dateIndex,
   } = args;
@@ -46,65 +55,83 @@ export const generateFooter = async (args: Args, totalPages: number) => {
       : filteredFiles.sort();
   let currentPage = 1;
 
+  const footerContent = (
+    page: PDFPage,
+    position: "left" | "center" | "right",
+    font: PDFFont,
+    content: string,
+  ) => {
+    const { width } = page.getSize();
+    let xPos = 0;
+    switch (position) {
+      case "left":
+        xPos = 36;
+        break;
+      case "center":
+        xPos = width / 2 - font.widthOfTextAtSize(content, 8) / 2;
+        break;
+      default:
+        xPos = width - 36 - font.widthOfTextAtSize(content, 8);
+    }
+
+    page.drawRectangle({
+      x: xPos * 1.2,
+      y: 36,
+      width: font.widthOfTextAtSize(content, 8) * 1.2,
+      height: font.heightAtSize(8) * 1.5,
+      color: grayscale(1),
+    });
+    page.drawText(content, {
+      x: xPos,
+      y: 36 + font.heightAtSize(8) / 2,
+      size: 8,
+      font,
+      color: rgb(0, 0, 0),
+    });
+  };
+
   for (const file of sortedFiles) {
     const pdfBytes = fs.readFileSync(path.join(outDir, file));
     const pdf = await PDFDocument.load(pdfBytes);
     const font = await pdf.embedFont(StandardFonts.Helvetica);
     const pages = pdf.getPages();
 
+    let groupLabel = null;
     let separatorPageLabel = null;
-    if (labelIsGroupDescLabel) {
-      // parse pdf file names to get pieces
-      const namePieces = file.split(nameDelineator);
-      // remove '.pdf' from last name piece
-      namePieces[namePieces.length - 1] = namePieces[
-        namePieces.length - 1
-      ].slice(0, namePieces[namePieces.length - 1].length - 4);
 
-      separatorPageLabel =
-        labelIndex !== null && labelIndex !== undefined
-          ? namePieces[labelIndex]
-          : label;
+    if (groupDesc) {
+      if (labelIsGroupDescLabel) {
+        // parse pdf file names to get pieces
+        const namePieces = file.split(nameDelineator);
+        // remove '.pdf' from last name piece
+        namePieces[namePieces.length - 1] = namePieces[
+          namePieces.length - 1
+        ].slice(0, namePieces[namePieces.length - 1].length - 4);
+
+        separatorPageLabel =
+          labelIndex !== null && labelIndex !== undefined
+            ? namePieces[labelIndex]
+            : label;
+      }
+      groupLabel =
+        labelIsGroupDescLabel && separatorPageLabel
+          ? separatorPageLabel
+          : groupDescLabel;
     }
-    const groupLabel =
-      labelIsGroupDescLabel && separatorPageLabel
-        ? separatorPageLabel
-        : groupDescLabel;
 
     pages.forEach((page) => {
-      const { width } = page.getSize();
-      let footer = `${
-        groupLabel ?? "_"
-      } - Page ${currentPage} of ${totalPages}`;
-      if (!groupLabel) footer = footer.split(" - ")[1];
-      if (!numberPages) footer = footer.split(" - ")[0];
-
-      let footerX = 0;
-      switch (pageNumberPos) {
-        case "left":
-          footerX = 36;
-          break;
-        case "center":
-          footerX = width / 2 - font.widthOfTextAtSize(footer, 8) / 2;
-          break;
-        default:
-          footerX = width - 36 - font.widthOfTextAtSize(footer, 8);
+      let pageNums = null;
+      if (numberPages) {
+        pageNums = `Page ${currentPage} of ${totalPages}`;
       }
 
-      page.drawRectangle({
-        x: footerX * 1.2,
-        y: 36,
-        width: font.widthOfTextAtSize(footer, 8) * 1.2,
-        height: font.heightAtSize(8) * 1.5,
-        color: grayscale(1),
-      });
-      page.drawText(footer, {
-        x: footerX,
-        y: 36 + font.heightAtSize(8) / 2,
-        size: 8,
-        font,
-        color: rgb(0, 0, 0),
-      });
+      if (pageNums && groupLabel && pageNumberPos === groupDescLabelPos) {
+        footerContent(page, pageNumberPos, font, `${groupLabel} - ${pageNums}`);
+      } else {
+        if (groupLabel)
+          footerContent(page, groupDescLabelPos, font, groupLabel);
+        if (pageNums) footerContent(page, pageNumberPos, font, pageNums);
+      }
 
       if (numberPages) currentPage += 1;
     });
