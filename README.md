@@ -160,7 +160,7 @@ PdfPartizione/
 ├── assests/
 │   ├── rolldown-runtime-[hash].js  # Runtime library
 │   └── vender-[hash].js            # Vendor libraries
-├── images/
+└── images/
     └── tag.png                     # Tag image for partitions
 ```
 
@@ -168,4 +168,4 @@ PdfPartizione/
 
 ## License
 
-ISC
+[MIT](https://github.com/Ultra8k/pdf-partizione/tree/ts-config-vite?tab=License-1-ov-file)

@@ -12,8 +12,8 @@
     "lint": "biome check --write"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Ultra 8k, Inc.",
+  "license": "MIT",
   "dependencies": {
     "@inquirer/prompts": "^8.5.2",
     "chalk": "^5.6.2",
